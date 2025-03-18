@@ -6,23 +6,19 @@ import Home from './components/Home';
 import Admin from './components/Admin';
 
 const App = () => {
-  //creates a state called user (initially null).
-	//setUser is a function that updates user.
+  // creates a state called user (initially null).
+  // setUser is a function that updates user.
   const [user, setUser] = useState(null);
 
-
-  //useEffect runs only once when the page loads.
-  //localStorage.getItem('user') → Checks if a user is already saved (from a previous login).
-  //JSON.parse(savedUser) → Converts the stored user back into an object.
+  // useEffect runs only once when the page loads.
+  // localStorage.getItem('user') → Checks if a user is already saved (from a previous login).
+  // JSON.parse(savedUser) → Converts the stored user back into an object.
   useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    if(savedUser){
-      setUser(JSON.parse(savedUser));
-    }
+    
   }, []);
 
   return (
-    //	<Router> → Enables navigation (switching between pages).
+    // <Router> → Enables navigation (switching between pages).
     // <Routes> → Holds all our page routes.
     <Router>
       <Routes>
@@ -30,14 +26,17 @@ const App = () => {
         {/* Passes setUser to Login (so login can update the user). */}
         <Route path="/login" element={<Login setUser={setUser} />} />
 
-        <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="login" />} />
+        {/* Protected Route for Home */}
+        <Route path="/home" element={user ? <Home user={user} /> : <Navigate to="/login" />} />
 
+        {/* Route for Signup */}
         <Route path="/signup" element={<Signup />} />
 
         {/* If the user enters an invalid page, redirect them to /login. */}
-        <Route path="*" element={ <Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/login" />} />
 
-        <Route path="/admin" element={ <Admin />} />        
+        {/* Protected Route for Admin */}
+        <Route path="/admin" element={user && user.email === 'admin' ? <Admin /> : <Navigate to="/login" />} />        
 
       </Routes>
     </Router>

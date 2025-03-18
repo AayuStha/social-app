@@ -119,7 +119,9 @@ function Home({ user }) {
                         />
                         <h3 className="text-lg font-semibold text-gray-700">{post.createdByName}</h3>
                     </div>
-                        <p className="text-gray-700 mb-4">{post.caption}</p>
+                        <p className="text-gray-900 font-bold text-xl mb-4">{post.title}</p>
+                
+                        <p className="text-gray-700 mb-4 text-l">{post.caption}</p>
                         
                         {/* Edit/Delete Buttons (Only visible for the current user's posts) */}
                         {post.createdBy === user.id && (
