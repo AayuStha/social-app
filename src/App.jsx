@@ -5,7 +5,7 @@ import Signup from './components/Signup';
 import Home from './components/Home';
 import Admin from './components/Admin';
 
-const App = () => {
+const App = () > {
   // creates a state called user (initially null).
   // setUser is a function that updates user.
   const [user, setUser] = useState(null);
